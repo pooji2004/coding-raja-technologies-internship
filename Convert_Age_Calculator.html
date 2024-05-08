@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age & Distance Converter</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   
+    <style>
+        body {
+            /* font-family: Arial, sans-serif; */
+            background-color: #f8f9fa;
+            font-family: give;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1877f2, #1877f2, #1877f2);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #1877f2, #1877f2, #1877f2);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .converter-section {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            background-color: #fff;
+            height: 100%;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .result p {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Age & Distance Converter</h1>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="converter-section">
+                    <h2>Age Calculator</h2>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" id="dob" class="form-control">
+                    </div>
+                    <button class="btn btn-primary mt-3" onclick="calculateAge()">Calculate Age</button>
+                    <div class="result">
+                        <p>Age in years: <span id="years"></span></p>
+                        <p>Age in months: <span id="months"></span></p>
+                        <p>Age in hours: <span id="hours"></span></p>
+                        <p>Age in minutes: <span id="minutes"></span></p>
+                        <p>Age in seconds: <span id="seconds"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="converter-section">
+                    <h2>Distance Converter</h2>
+                    <div class="form-group">
+                        <label for="distance">Distance:</label>
+                        <input type="number" id="distance" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="unit">Unit:</label>
+                        <select id="unit" class="form-control">
+                            <option value="km">Kilometers</option>
+                            <option value="m">Meters</option>
+                            <option value="in">Inches</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary mt-3" onclick="convertDistance()">Convert</button>
+                    <div class="result">
+                        <p>Distance in kilometers: <span id="km"></span></p>
+                        <p>Distance in meters: <span id="m"></span></p>
+                        <p>Distance in inches: <span id="in"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2023 Age & Distance Converter. All rights reserved.</p>
+    </div>
+
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+    <script>
+        function calculateAge() {
+            var dob = document.getElementById('dob').value;
+            var today = new Date();
+            var birthDate = new Date(dob);
+            var ageInYears = today.getFullYear() - birthDate.getFullYear();
+            var ageInMonths = (ageInYears * 12) + (today.getMonth() - birthDate.getMonth());
+            var ageInHours = ageInYears * 365 * 24;
+            var ageInMinutes = ageInYears * 365 * 24 * 60;
+            var ageInSeconds = ageInYears * 365 * 24 * 60 * 60;
+
+            document.getElementById('years').textContent = ageInYears;
+            document.getElementById('months').textContent = ageInMonths;
+            document.getElementById('hours').textContent = ageInHours;
+            document.getElementById('minutes').textContent = ageInMinutes;
+            document.getElementById('seconds').textContent = ageInSeconds;
+        }
+
+        function convertDistance() {
+            var distance = document.getElementById('distance').value;
+            var unit = document.getElementById('unit').value;
+
+            if (unit === 'km') {
+                document.getElementById('km').textContent = distance;
+                document.getElementById('m').textContent = distance * 1000;
+                document.getElementById('in').textContent = distance * 39370.1;
+            } else if (unit === 'm') {
+                document.getElementById('km').textContent = distance / 1000;
+                document.getElementById('m').textContent = distance;
+                document.getElementById('in').textContent = distance * 39.3701;
+            } else if (unit === 'in') {
+                document.getElementById('km').textContent = distance / 39370.1;
+                document.getElementById('m').textContent = distance / 39.3701;
+                document.getElementById('in').textContent = distance;
+            }
+        }
+    </script>
+</body>
+</html>
